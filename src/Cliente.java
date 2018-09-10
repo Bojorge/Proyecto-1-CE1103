@@ -10,7 +10,11 @@ import java.io.Serializable;
 import javax.swing.*;
 import java.net.*;
 
-
+/**
+ * Hace la funcion de cliente en una comunicacion de tipo cliente-servidor
+ * @author Bojorge
+ *
+ */
 public class Cliente {
 
 	public Cliente() {

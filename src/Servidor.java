@@ -10,6 +10,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Hace la funcion de servidor en una comunicacion de tipo cliente-servidor
+ * @author Bojorge
+ *
+ */
 public class Servidor  {
 
 	public Servidor() {
@@ -55,7 +60,7 @@ class MarcoServidor extends JFrame implements Runnable{
 	
 	private	JTextArea areatexto;
 
-//	thread
+//	thread; se mantiene a la escucha de nuevas conecciones (se ejecuta en segundo plano)
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
