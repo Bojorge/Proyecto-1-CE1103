@@ -9,6 +9,10 @@ import javax.swing.JTextField;
 
 
 public class Ventana extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTextField campo1;
 	JButton boton;
 	
@@ -21,6 +25,11 @@ public class Ventana extends JFrame{
 	}
 	
 	class PanelPrincipal extends JPanel{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public PanelPrincipal(String titulo,Boolean ask) {
 			JLabel texto=new JLabel(titulo);
 			add(texto);

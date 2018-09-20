@@ -32,9 +32,7 @@ class MarcoCliente extends JFrame{
 		setBounds(100,300,400,500);
 				
 		LaminaMarcoCliente milamina=new LaminaMarcoCliente();
-		
 		add(milamina);
-		
 		setVisible(true);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +42,11 @@ class MarcoCliente extends JFrame{
 
 class LaminaMarcoCliente extends JPanel implements Runnable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public LaminaMarcoCliente(){
 		
 		nick=new JTextField(5);
@@ -89,7 +92,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 //			System.out.println(campo1.getText());
 			
 			try {
-				Socket socket=new Socket("192.168.4.123",9999);
+				Socket socket=new Socket("192.168.0.11",9999);
 				
 //				Objeto que contiene los datos
 				PaqueteEnvio datos=new PaqueteEnvio();
