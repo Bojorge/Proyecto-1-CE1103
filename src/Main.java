@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
-
+	
+	Lista<String> lista=new Lista<String>();
+	
+	
     private int n;
 //  clase abstracta
     private Jugador jugadorVerde, jugadorAzul;
@@ -13,31 +16,19 @@ public class Main {
 
     
     private JFrame ventana;
-    private JLabel modoError, tamanoError;
 
 //  lista de jugadores disponibles
-    String[] jugadores = {"Annunaki","Terricola","Marciano"};
-    private JRadioButton[] tamanoButon;
-    JComboBox<String> verdeLista, azulLista;
-    ButtonGroup tamanoGrupo;
-
+    Lista<String> jugador1=new Lista<String>();
+    Lista<String> jugador2=new Lista<String>();
+    
+    
+    Lista<String> verdeLista, azulLista;
    
-    public Main() {
-
+	public Main() {    	
+    	
         ventana = new JFrame();
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-//      Array de objetos como vector de un array tipo String llamado "jugadores"
-        verdeLista = new JComboBox<String>(jugadores);
-        azulLista = new JComboBox<String>(jugadores);
-
-        tamanoButon = new JRadioButton[8];
-        tamanoGrupo = new ButtonGroup();
-        for(int i=0; i<8; i++) {
-            String size = String.valueOf(i+3);
-            tamanoButon[i] = new JRadioButton(size + " x " + size);
-            tamanoGrupo.add(tamanoButon[i]);
-        }
+       
     }
 
 //  devuelve la etiqueta
@@ -48,6 +39,7 @@ public class Main {
     }
 
     private boolean iniciarJuego;
+
 
 //  evento para cuando es pulsado el boton "Empezar juego"
     private ActionListener enviarOyente = new ActionListener() {
@@ -75,21 +67,21 @@ public class Main {
         ++constraints.gridy;
         grid.add(getEmptyLabel(new Dimension(500,25)), constraints);
 
-//
-//      Panel con una ubicacion de objetos siguiendo un patron de rejilla
-        JPanel modePanel = new JPanel(new GridLayout(2, 2));
-        modePanel.setPreferredSize(new Dimension(400, 50));
-// 
-//      cambia el color de fuente del nombre deljugador "Player-1" y "Player-2" en la ventana de inicio
-        modePanel.add(new JLabel("<html><font color='green'>Verde:", SwingConstants.CENTER));
-        modePanel.add(new JLabel("<html><font color='blue'>Azul:", SwingConstants.CENTER));
+        JPanel modePanel = new JPanel();
+        modePanel.setPreferredSize(new Dimension(450, 70));
         
-        modePanel.add(verdeLista);
-        modePanel.add(azulLista);
+//        Se llenan las listas con los jugadores
+        jugador1.insertarInicio("Marciano");
+    	jugador1.insertarInicio("Annunaki");
+    	jugador2.insertarInicio("Bojorge");
+    	jugador2.insertarInicio("Terricola");
         
-//      indice de la lista de jugadores seleccionado por default
-        verdeLista.setSelectedIndex(0);
-        azulLista.setSelectedIndex(0);
+        JLabel jugadorV=new JLabel("Verde"+" >>> "+jugador1.primero()+"   < | >  ");
+        JLabel jugadorA=new JLabel("Azul"+" >>> "+jugador2.primero()+"   ");
+        
+        modePanel.add(jugadorV);
+        modePanel.add(jugadorA);
+        
         ++constraints.gridy;
         grid.add(modePanel, constraints);
 

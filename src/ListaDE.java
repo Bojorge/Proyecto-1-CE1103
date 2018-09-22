@@ -8,8 +8,8 @@ public class ListaDE {
  
 //	clase interna
     class Nodo {
-        int info;
-        Nodo ant,sig;
+        Object dato;
+        Nodo ante,sig;
     }
     
     private Nodo raiz;
@@ -27,34 +27,34 @@ public class ListaDE {
      * @param x - dato del nodo
      */
     
-    void insertar (int pos, int x)
+    void insertar (int pos,Object x)
     {
         if (pos <= cantidad () + 1)    {
             Nodo nuevo = new Nodo ();
-            nuevo.info = x;
+            nuevo.dato = x;
             if (pos == 1){
                 nuevo.sig = raiz;
                 if (raiz!=null)
-                    raiz.ant=nuevo;
+                    raiz.ante=nuevo;
                 raiz = nuevo;
             } else
                 if (pos == cantidad () + 1)    {
-                    Nodo reco = raiz;
-                    while (reco.sig != null) {
-                        reco = reco.sig;
+                    Nodo aux = raiz;
+                    while (aux.sig != null) {
+                        aux = aux.sig;
                     }
-                    reco.sig = nuevo;
-                    nuevo.ant=reco;
+                    aux.sig = nuevo;
+                    nuevo.ante=aux;
                     nuevo.sig = null;
                 } else {
-                    Nodo reco = raiz;
+                    Nodo aux = raiz;
                     for (int f = 1 ; f <= pos - 2 ; f++)
-                        reco = reco.sig;
-                    Nodo siguiente = reco.sig;
-                    reco.sig = nuevo;
-                    nuevo.ant=reco;
+                        aux = aux.sig;
+                    Nodo siguiente = aux.sig;
+                    aux.sig = nuevo;
+                    nuevo.ante=aux;
                     nuevo.sig = siguiente;
-                    siguiente.ant=nuevo;
+                    siguiente.ante=nuevo;
                 }
         }
     }
@@ -64,25 +64,25 @@ public class ListaDE {
      * @param pos - posicion o indice del dato a extraer
      * @return si la posicion indicada es mayor a la cantidad devuelve Integer.MAX_VALUE
      */
-    public int extraer (int pos) {
+    public Object extraer (int pos) {
         if (pos <= cantidad ())    {
-            int informacion;
+            Object informacion;
             if (pos == 1) {
-                informacion = raiz.info;
+                informacion = raiz.dato;
                 raiz = raiz.sig;
                 if (raiz!=null)
-                    raiz.ant=null;
+                    raiz.ante=null;
             } else {
-                Nodo reco;
-                reco = raiz;
+                Nodo aux;
+                aux = raiz;
                 for (int f = 1 ; f <= pos - 2 ; f++)
-                    reco = reco.sig;
-                Nodo prox = reco.sig;
-                reco.sig = prox.sig;
+                    aux = aux.sig;
+                Nodo prox = aux.sig;
+                aux.sig = prox.sig;
                 Nodo siguiente=prox.sig;
                 if (siguiente!=null)
-                    siguiente.ant=reco;
-                informacion = prox.info;
+                    siguiente.ante=aux;
+                informacion = prox.dato;
             }
             return informacion;
         }
@@ -100,17 +100,17 @@ public class ListaDE {
             if (pos == 1) {
                 raiz = raiz.sig;
                 if (raiz!=null)
-                    raiz.ant=null;
+                    raiz.ante=null;
             } else {
-                Nodo reco;
-                reco = raiz;
+                Nodo aux;
+                aux = raiz;
                 for (int f = 1 ; f <= pos - 2 ; f++)
-                    reco = reco.sig;
-                Nodo prox = reco.sig;
+                    aux = aux.sig;
+                Nodo prox = aux.sig;
                 prox=prox.sig;
-                reco.sig = prox;
+                aux.sig = prox;
                 if (prox!=null)
-                    prox.ant=reco;
+                    prox.ante=aux;
             }
         }
     }
@@ -128,9 +128,9 @@ public class ListaDE {
             Nodo reco2 = raiz;
             for (int f = 1 ; f < pos2 ; f++)
                 reco2 = reco2.sig;
-            int aux = reco1.info;
-            reco1.info = reco2.info;
-            reco2.info = aux;
+            Object aux = reco1.dato;
+            reco1.dato = reco2.dato;
+            reco2.dato = aux;
         }
     }
     
@@ -144,9 +144,9 @@ public class ListaDE {
     public int cantidad ()
     {
         int cant = 0;
-        Nodo reco = raiz;
-        while (reco != null) {
-            reco = reco.sig;
+        Nodo aux = raiz;
+        while (aux != null) {
+            aux = aux.sig;
             cant++;
         }
         return cant;

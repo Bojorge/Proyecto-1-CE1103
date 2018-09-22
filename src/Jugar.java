@@ -219,7 +219,7 @@ public class Jugar {
 
 //    metodo constructor, abre una ventana, con "n"se establece la matriz de puntos y nombre a los jugadores
     public Jugar(Main parent, JFrame ventana, int n, Jugador jugadorVerde, Jugador jugadorAzul, String verdeName, String azulName) {
-        this.padre = parent;
+       	this.padre = parent;
         this.ventana = ventana;
         this.n = n;
         this.jugadorVerde = jugadorVerde;
