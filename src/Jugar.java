@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class Jugar {
-
+//	estas constantes estaticas asignan el tamaño de los puntos y el lado del cuadrado que se forma entre cuatro puntos
     private final static int tamAnchLineas = 7;
     private final static int ladoCuad = 50;
 
@@ -25,6 +25,17 @@ public class Jugar {
 
 //   matrices de etiquetas y valores booleanos
     private JLabel[][] hBorde, vBorde, cuadro;
+    
+//	con esto se trata de hacer listas de listas para implementar una matriz
+//  private Lista<Lista> HFilBorde;
+//  private Lista<JLabel> HColBorde;
+//  
+//  private Lista<JLabel> VFilBorde;
+//  private Lista<JLabel> VColBorde;
+//  
+//  private Lista<JLabel> Filcuadro;
+//  private Lista<JLabel> Colcuadro;
+    
     private boolean[][] isSetHBorde, isSetVBorde;
 
     private JFrame ventana;
@@ -283,12 +294,31 @@ public class Jugar {
 
 //        se instancian las matrices
         hBorde = new JLabel[n-1][n];
+//        for(int k=1;k<=n-1;k++){
+//        	HFilBorde.insertarInicio(HColBorde);
+//            for (int i = 0; i<n; i++) {
+//            	HColBorde.insertarInicio(getBordeHorizontal());
+//            }
+//        }
         isSetHBorde = new boolean[n-1][n];
 
         vBorde = new JLabel[n][n-1];
+//        for(int k=1;k<=n;k++){
+//        	VFilBorde.insertarInicio(getBordeVertical());
+//            for (int i = 0; i<n-1; i++) {
+//            	VColBorde.insertarInicio(getBordeVertical());
+//            }
+//        }
         isSetVBorde = new boolean[n][n-1];
-
+        
         cuadro = new JLabel[n-1][n-1];
+//        for(int s=1;s<=n-1;s++){
+//        	Filcuadro.insertarInicio(getCuadro());
+//            for (int v = 0; v<n-1; v++) {
+//            	Colcuadro.insertarInicio(getCuadro());
+//        
+//            }
+//        }
 
 //        se recorren las matrices para ubicar los puntos y los bordes
         

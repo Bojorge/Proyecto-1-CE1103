@@ -18,8 +18,10 @@ import java.net.*;
 public class Cliente {
 
 	public Cliente() {
-		MarcoCliente mimarco=new MarcoCliente();
-
+//		MarcoCliente mimarco=new MarcoCliente();
+		
+		Main iniciar=new Main();
+		iniciar.initGUI();
 	}
 
 }

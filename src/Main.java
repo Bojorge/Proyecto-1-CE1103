@@ -118,7 +118,24 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Main().initGUI();
+    	Servidor servidor=new Servidor();
+		
+		Thread clienteT1=new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Cliente cliente1=new Cliente();
+			}
+		});
+		
+		Thread clienteT2=new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Cliente cliente2=new Cliente(); 
+			}
+		});
+		
+		clienteT1.start();
+		clienteT2.start();
     }
 
 }
