@@ -189,8 +189,9 @@ public class Jugar {
 //  crea y le da color al borde o cada linea horizontal que conectan los puntos
     private JLabel getBordeHorizontal() {
         JLabel label = new JLabel();
+        label.setBackground(Color.WHITE);
         label.setPreferredSize(new Dimension(ladoCuad, tamAnchLineas));
-        label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        label.setBorder(BorderFactory.createLineBorder(Color.GRAY.brighter()));
         label.setOpaque(true);
         label.addMouseListener(mouseListener);
         return label;
@@ -199,8 +200,9 @@ public class Jugar {
 //  crea y le da color al borde o cada linea vertical que conectan los puntos
     private JLabel getBordeVertical() {
         JLabel label = new JLabel();
+        label.setBackground(Color.WHITE);
         label.setPreferredSize(new Dimension(tamAnchLineas, ladoCuad));
-        label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        label.setBorder(BorderFactory.createLineBorder(Color.GRAY.brighter()));
         label.setOpaque(true);
         label.addMouseListener(mouseListener);
         return label;
@@ -217,6 +219,7 @@ public class Jugar {
 
     private JLabel getCuadro() {
         JLabel label = new JLabel();
+        label.setBackground(Color.WHITE);
         label.setPreferredSize(new Dimension(ladoCuad, ladoCuad));
         label.setOpaque(true);
         return label;
@@ -257,6 +260,7 @@ public class Jugar {
         jugador = jugadorVerde;
 
         JPanel cuadricula = new JPanel(new GridBagLayout());
+        cuadricula.setBackground(Color.WHITE);
         GridBagConstraints restricciones = new GridBagConstraints();
         restricciones.gridx = 0;
         restricciones.gridy = 0;
@@ -264,12 +268,13 @@ public class Jugar {
         
 //      crea un panel con el nombre de los jugadores
         JPanel playerPanel = new JPanel(new GridLayout(2, 2));
+        playerPanel.setBackground(Color.WHITE);
         if(n>3) playerPanel.setPreferredSize(new Dimension(2 * AnchoTablero, ladoCuad));
         else playerPanel.setPreferredSize(new Dimension(2 * AnchoTablero, 2 * ladoCuad));
         playerPanel.add(new JLabel("<html><font color='green'>Verde:", SwingConstants.CENTER));
         playerPanel.add(new JLabel("<html><font color='blue'>Azul:", SwingConstants.CENTER));
-        playerPanel.add(new JLabel("<html><font color='green'>" + "jugador 1", SwingConstants.CENTER));
-        playerPanel.add(new JLabel("<html><font color='blue'>" + "jugador 2", SwingConstants.CENTER));
+        playerPanel.add(new JLabel("<html><font color='green'>" + verdeName, SwingConstants.CENTER));
+        playerPanel.add(new JLabel("<html><font color='blue'>" + azulName, SwingConstants.CENTER));
         ++restricciones.gridy;
         cuadricula.add(playerPanel, restricciones);
 
@@ -277,6 +282,7 @@ public class Jugar {
         cuadricula.add(getEmptyLabel(new Dimension(2 * AnchoTablero, 10)), restricciones);
 
         JPanel panelPuntuacion = new JPanel(new GridLayout(2, 2));
+        panelPuntuacion.setBackground(Color.WHITE);
         panelPuntuacion.setPreferredSize(new Dimension(2 * AnchoTablero, ladoCuad));
         panelPuntuacion.add(new JLabel("<html><font color='green'>Puntuacion:", SwingConstants.CENTER));
         panelPuntuacion.add(new JLabel("<html><font color='blue'>Puntuacion:", SwingConstants.CENTER));
@@ -324,7 +330,8 @@ public class Jugar {
         
 //        La variable "i" en cada bucle se usa como indice para ubicar las lineas y los puntos
         for(int i=0; i<(2*n-1); i++) { 
-            JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        	JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+            
             if(i%2==0) {
                 panel.add(getPunto());
                 for(int j=0; j<(n-1); j++) {
@@ -345,6 +352,7 @@ public class Jugar {
             }
             ++restricciones.gridy;
             cuadricula.add(panel, restricciones);
+            
         }
 
         ++restricciones.gridy;
@@ -386,6 +394,10 @@ public class Jugar {
             }
         }
         padre.initGUI();
+    }
+    
+    public void getDatosJuego() {
+    	
     }
 
 }

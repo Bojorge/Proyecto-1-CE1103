@@ -23,6 +23,11 @@ public class Cliente {
 		Main iniciar=new Main();
 		iniciar.initGUI();
 	}
+	
+	public Cliente(int x) {
+		Main iniciar=new Main(x);
+		iniciar.initGUI();
+	}
 
 }
 

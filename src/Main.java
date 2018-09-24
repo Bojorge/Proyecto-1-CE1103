@@ -7,6 +7,12 @@ public class Main {
 	
 	Lista<String> lista=new Lista<String>();
 	
+	JTextField userNameField;
+	
+	JLabel jugadorV;
+	JLabel jugadorA;
+	
+	JPanel modePanel;
 	
     private int n;
 //  clase abstracta
@@ -23,13 +29,21 @@ public class Main {
     
     
     Lista<String> verdeLista, azulLista;
+    
+    int x;
    
 	public Main() {    	
     	
         ventana = new JFrame();
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
     }
+	
+	public Main(int x) {
+		this.x=x;
+		ventana = new JFrame();
+		ventana.setBounds(x,150,200,50);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
 //  devuelve la etiqueta
     private JLabel getEmptyLabel(Dimension d) {
@@ -46,10 +60,13 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
         	
+        	jugador_1=userNameField.getText();
+        	jugador_2=userNameField.getText();
+        	
         	iniciarJuego = true;
         	
 //        	Este bucle le da el tamaño al tablero
-        	for(int i=0;i<7;i++) {
+        	for(int i=0;i<4;i++) {
         		n=i+3;
         	}
         }
@@ -67,20 +84,29 @@ public class Main {
         ++constraints.gridy;
         grid.add(getEmptyLabel(new Dimension(500,25)), constraints);
 
-        JPanel modePanel = new JPanel();
+        modePanel = new JPanel();
         modePanel.setPreferredSize(new Dimension(450, 70));
         
-//        Se llenan las listas con los jugadores
-        jugador1.insertarInicio("Marciano");
+
+    	
+    	userNameField=new JTextField(20);
+    	modePanel.add(userNameField);
+    	
+    	String nombreJugador=userNameField.getText();
+    	
+//      Se llenan las listas con los jugadores
     	jugador1.insertarInicio("Annunaki");
-    	jugador2.insertarInicio("Bojorge");
-    	jugador2.insertarInicio("Terricola");
+        jugador1.insertarInicio(nombreJugador);
         
-        JLabel jugadorV=new JLabel("Verde"+" >>> "+jugador1.primero()+"   < | >  ");
-        JLabel jugadorA=new JLabel("Azul"+" >>> "+jugador2.primero()+"   ");
-        
-        modePanel.add(jugadorV);
-        modePanel.add(jugadorA);
+  	    jugador2.insertarInicio(nombreJugador);
+  	    jugador2.insertarInicio("Terricola");
+  	    
+    	
+//        jugadorV=new JLabel("Verde"+" >>> "+userNameField.getText()+"   < | >  ");
+//        jugadorA=new JLabel("Azul"+" >>> "+userNameField.getText()+"   ");
+//        
+//        modePanel.add(jugadorV);
+//        modePanel.add(jugadorA);
         
         ++constraints.gridy;
         grid.add(modePanel, constraints);
@@ -102,6 +128,7 @@ public class Main {
         grid.add(getEmptyLabel(new Dimension(500, 25)), constraints);
 
         ventana.setContentPane(grid);
+        ventana.setBounds(x,150,500,200);
         ventana.pack();
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
@@ -118,19 +145,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-    	Servidor servidor=new Servidor();
+//    	Servidor servidor=new Servidor();
 		
 		Thread clienteT1=new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Cliente cliente1=new Cliente();
+				Cliente cliente1=new Cliente(200);
 			}
 		});
 		
 		Thread clienteT2=new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Cliente cliente2=new Cliente(); 
+				Cliente cliente2=new Cliente(100);
 			}
 		});
 		
