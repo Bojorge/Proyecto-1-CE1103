@@ -7,7 +7,7 @@
 public class Cola {    
 
     class Nodo {
-        int info;
+        Object info;
         Nodo sig;
     }    
 
@@ -25,7 +25,7 @@ public class Cola {
             return false;
     }
 
-    void insertar (int info) {  
+    void insertar (Object info) {  
         Nodo nuevo;
         nuevo = new Nodo ();
         nuevo.info = info;
@@ -40,9 +40,9 @@ public class Cola {
         }
     }
 
-    int extraer () {    
+    Object extraer () {    
         if (!vacia ()) {     
-        	int informacion = raiz.info;
+        	Object informacion = raiz.info;
             if (raiz == fondo){
                 raiz = null;
                 fondo = null;
