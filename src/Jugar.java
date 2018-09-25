@@ -259,6 +259,7 @@ public class Jugar {
         turno = Tablero.VERDE;
         jugador = jugadorVerde;
 
+//        Panel que rodea la cuadricula del juego (la cuadricula esta hecha con etiquetas
         JPanel cuadricula = new JPanel(new GridBagLayout());
         cuadricula.setBackground(Color.WHITE);
         GridBagConstraints restricciones = new GridBagConstraints();
@@ -281,6 +282,7 @@ public class Jugar {
         ++restricciones.gridy;
         cuadricula.add(getEmptyLabel(new Dimension(2 * AnchoTablero, 10)), restricciones);
 
+//        panel donde se muestran los puntos de los jugadores
         JPanel panelPuntuacion = new JPanel(new GridLayout(2, 2));
         panelPuntuacion.setBackground(Color.WHITE);
         panelPuntuacion.setPreferredSize(new Dimension(2 * AnchoTablero, ladoCuad));

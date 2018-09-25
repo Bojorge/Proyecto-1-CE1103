@@ -1,8 +1,10 @@
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Tablero implements Cloneable {
-
+	Actualizacion actualizar=new Actualizacion();
+	
     final static int VERDE = 0;
     final static int AZUL = 1;
     final static int NEGRO = 2;
@@ -22,8 +24,11 @@ public class Tablero implements Cloneable {
         llenar(cuadro,BLANCO);
         this.n = n;
         puntuacionVerde = puntuacionAzul = 0;
-    }
- 
+    } 
+ 	
+//    metodo sobreescrito obligatoria al implementar la interfaz cloneable
+//    realiza copias del tablero
+//    este metodo no esta en la interface cloneable esta en la clase Object
     public Tablero clone() {
         Tablero clonado = new Tablero(n);
 
@@ -93,14 +98,26 @@ public class Tablero implements Cloneable {
         if(y<(n-1) && vBorde[x][y]==NEGRO && vBorde[x+1][y]==NEGRO && hBorde[x][y+1]==NEGRO) {
             cuadro[x][y]=color;
             remover.add(new Point(x,y));
-            if(color == VERDE) puntuacionVerde++;
-            else puntuacionAzul++;
+            if(color == VERDE) {
+            	puntuacionVerde++;
+            	actualizar.setPuntosVerde(puntuacionVerde);
+            }
+            else {
+            	puntuacionAzul++;
+            	actualizar.setPuntosAzul(puntuacionAzul);
+            }
         }
         if(y>0 && vBorde[x][y-1]==NEGRO && vBorde[x+1][y-1]==NEGRO && hBorde[x][y-1]==NEGRO) {
             cuadro[x][y-1]=color;
             remover.add(new Point(x,y-1));
-            if(color == VERDE) puntuacionVerde++;
-            else puntuacionAzul++;
+            if(color == VERDE) { 
+            	puntuacionVerde++;
+            	actualizar.setPuntosVerde(puntuacionVerde);
+            }
+            else {
+            	puntuacionAzul++;
+            	actualizar.setPuntosAzul(puntuacionAzul);
+            }
         }
         return remover;
     }
@@ -111,14 +128,26 @@ public class Tablero implements Cloneable {
         if(x<(n-1) && hBorde[x][y]==NEGRO && hBorde[x][y+1]==NEGRO && vBorde[x+1][y]==NEGRO) {
             cuadro[x][y]=color;
             remover.add(new Point(x,y));
-            if(color == VERDE) puntuacionVerde++;
-            else puntuacionAzul++;
+            if(color == VERDE) { 
+            	puntuacionVerde++;
+            	actualizar.setPuntosVerde(puntuacionVerde);
+            }
+            else {
+            	puntuacionAzul++;
+            	actualizar.setPuntosAzul(puntuacionAzul);
+            }
         }
         if(x>0 && hBorde[x-1][y]==NEGRO && hBorde[x-1][y+1]==NEGRO && vBorde[x-1][y]==NEGRO) {
             cuadro[x-1][y]=color;
             remover.add(new Point(x-1,y));
-            if(color == VERDE) puntuacionVerde++;
-            else puntuacionAzul++;
+            if(color == VERDE) { 
+            	puntuacionVerde++;
+            	actualizar.setPuntosVerde(puntuacionVerde);
+            }
+            else {
+            	puntuacionAzul++;
+            	actualizar.setPuntosAzul(puntuacionAzul);
+            }
         }
         return remover;
     }
@@ -162,4 +191,40 @@ public class Tablero implements Cloneable {
         return count;
     }
 
+}
+
+class Actualizacion implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String ip;
+	int puntosVerde, puntosAzul;
+
+	public int getPuntosVerde() {
+		return puntosVerde;
+	}
+
+	public void setPuntosVerde(int puntosVerde) {
+		this.puntosVerde = puntosVerde;
+	}
+
+	public int getPuntosAzul() {
+		return puntosAzul;
+	}
+
+	public void setPuntosAzul(int puntosAzul) {
+		this.puntosAzul = puntosAzul;
+	}
+	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	
+	
 }
