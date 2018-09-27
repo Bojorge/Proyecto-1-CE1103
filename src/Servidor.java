@@ -3,10 +3,8 @@
 import javax.swing.*;
 
 import java.awt.*;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,104 +14,124 @@ import java.net.Socket;
  *
  */
 public class Servidor  {
-
+	
+	private String jugador1,jugador2;
+	Main main;
+	
 	public Servidor() {
 		// TODO Auto-generated method stub
 		
-		MarcoServidor mimarco=new MarcoServidor();
+		@SuppressWarnings("unused")
+		VentanaServidor marco=new VentanaServidor();
 		
 		
 			
-	}	
-}
-
-class MarcoServidor extends JFrame implements Runnable{
+	}
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	public MarcoServidor(){
-		
-		setBounds(700,300,400,500);				
-			
-		JPanel milamina= new JPanel();
-		
-		milamina.setLayout(new BorderLayout());
-		
-		areatexto=new JTextArea();
-		
-		milamina.add(areatexto,BorderLayout.CENTER);
-		
-		add(milamina);
-		
-		setVisible(true);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-//		se usa para ejecucion en segundo plano
-		Thread mi_hilo=new Thread(this);
-		mi_hilo.start();
-		
-		}
 	
-	private	JTextArea areatexto;
+	public String getJugador1() {
+		return jugador1;
+	}
 
-//	thread; se mantiene a la escucha de nuevas conecciones (se ejecuta en segundo plano)
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+
+	public void setJugador1(String jugador1) {
+		this.jugador1 = jugador1;
+	}
+
+
+	public String getJugador2() {
+		return jugador2;
+	}
+
+
+	public void setJugador2(String jugador2) {
+		this.jugador2 = jugador2;
+	}
+
+
+	class VentanaServidor extends JFrame implements Runnable{
 		
-		try {
-//			abre el puerto
-			ServerSocket servidor=new ServerSocket(9999);
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public VentanaServidor(){
 			
-			String nick,ip,mensaje;
-			
-			PaqueteEnvio paquete_recibido;
-			
-			while(true) {
+			setBounds(600,100,100,100);				
 				
-//			acepta la coneccion 
-			Socket socket=servidor.accept();
+			JPanel lamina= new JPanel();
 			
-			ObjectInputStream paquete_datos=new ObjectInputStream(socket.getInputStream());
+			lamina.setLayout(new BorderLayout());
 			
-			paquete_recibido=(PaqueteEnvio) paquete_datos.readObject();
+			areatexto=new JTextArea();
 			
-			nick=paquete_recibido.getNick();
-			ip=paquete_recibido.getIp();
-			mensaje=paquete_recibido.getMensaje();
+			lamina.add(areatexto,BorderLayout.CENTER);
 			
-//			recibe los datos de entrada
-//			DataInputStream flujo_entrada=new DataInputStream(socket.getInputStream());
-//			lee el texto recibido
-//			String mensaje_texto=flujo_entrada.readUTF();
-//			escrebe el mensaje en el area de texto
-//			areatexto.append("\n"+mensaje_texto);
+			add(lamina);
 			
-			areatexto.append("\n"+nick+": "+mensaje+" >>> para "+ip);
+			setVisible(true);
 			
-//			servidor-cliente, se usa para enviar el mensaje a otro cliente
-			Socket enviaDestinatario=new Socket(ip,9999);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
-//			se crea un objeto y se especifica por cual socket se envia y se obtiene el objeto
-			ObjectOutputStream paqueteReenvio=new ObjectOutputStream(enviaDestinatario.getOutputStream());
+//			se usa para ejecucion en segundo plano
+			Thread hilo=new Thread(this);
+			hilo.start();
 			
-//			escribe en paqueteReenvio lo que esta en paquete_recibido
-			paqueteReenvio.writeObject(paquete_recibido);
-			
-			paqueteReenvio.close();
-			
-			enviaDestinatario.close();
-//			cierra la coneccion 
-			socket.close();
 			}
-			
-		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		private	JTextArea areatexto;
+
+//		thread; se mantiene a la escucha de nuevas conecciones (se ejecuta en segundo plano)
+		@SuppressWarnings({ "resource", "unused" })
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			Cola colaJugadores=new Cola();
+			try {
+//				abre el puerto
+				ServerSocket servidor=new ServerSocket(9999);
+				int jugadores= 0;
+				String nick,ip;
+				
+				PanelPrincipalCliente.PaqueteEnvio paquete_recibido;
+				
+				while(true) { 
+					
+//				acepta la coneccion 
+				Socket socket=servidor.accept();
+				
+				ObjectInputStream paquete_datos=new ObjectInputStream(socket.getInputStream());
+				
+				paquete_recibido=(PanelPrincipalCliente.PaqueteEnvio) paquete_datos.readObject();
+				
+				nick=paquete_recibido.getNick();
+				ip=paquete_recibido.getIp();
+				
+				colaJugadores.insertar(nick);
+				jugadores++;
+				
+				if(jugadores==1) {
+					setJugador1((String) colaJugadores.extraer());
+				}else if(jugadores==2){
+					setJugador2((String) colaJugadores.extraer());
+					
+					areatexto.append("\n"+getJugador1()+"\n"+getJugador2());
+					main=new Main(getJugador1(),getJugador2());
+					jugadores=0;
+				}
+				
+				
+//				cierra la coneccion 
+				socket.close();
+				}
+				
+			} catch (IOException | ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
+
+

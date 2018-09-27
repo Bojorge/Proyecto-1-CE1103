@@ -1,45 +1,47 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import javax.swing.*;
-import java.net.*;
 
-/**
- * Hace la funcion de cliente en una comunicacion de tipo cliente-servidor
- * @author Bojorge
- *
- */
+
 public class Cliente {
-
-	public Cliente() {
-//		MarcoCliente mimarco=new MarcoCliente();
-		
-		Main iniciar=new Main();
-		iniciar.initGUI();
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		Cliente c=new Cliente(150);
+		Cliente d=new Cliente(700);
+		Servidor s=new Servidor();
 	}
 	
 	public Cliente(int x) {
-		Main iniciar=new Main(x);
-		iniciar.initGUI();
+		@SuppressWarnings("unused")
+		VentanaPrincipal v=new VentanaPrincipal(x);
 	}
-
+	
 }
 
 
-class MarcoCliente extends JFrame{
+class VentanaPrincipal extends JFrame{
 	
-	public MarcoCliente(){
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public VentanaPrincipal(int x){
 		
-		setBounds(100,300,400,500);
+		setBounds(x,300,500,100);
 				
-		LaminaMarcoCliente milamina=new LaminaMarcoCliente();
-		add(milamina);
+		PanelPrincipalCliente lamina=new PanelPrincipalCliente();
+		add(lamina);
 		setVisible(true);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,56 +49,52 @@ class MarcoCliente extends JFrame{
 	
 }
 
-class LaminaMarcoCliente extends JPanel implements Runnable{
+class PanelPrincipalCliente extends JPanel implements Runnable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public LaminaMarcoCliente(){
-		
-		nick=new JTextField(5);
-		
-		add(nick);
 	
-		JLabel texto=new JLabel("CHAT");
+	private JTextField nickName,ip;
+	
+	private JButton botonEnviar;
+	
+	public PanelPrincipalCliente(){
 		
-		add(texto);
+		JLabel Jugador=new JLabel("Jugador >>>");		
+		add(Jugador);
+		
+		nickName=new JTextField(5);		
+		add(nickName);
+	
+		JLabel direccionIP=new JLabel("IP >>>");
+		add(direccionIP);
 		
 		ip=new JTextField(8);
-		
-		add(ip);
-		
-		campochat=new JTextArea(12,20);
-		
-		add(campochat);
+		ip.setText("192.168.0.11");
+		add(ip);		
 	
-		campo1=new JTextField(20);
-	
-		add(campo1);		
-	
-		miboton=new JButton("Enviar");
+		botonEnviar=new JButton("Jugar");
 		
-		EnviaTexto mievento=new EnviaTexto();
+		EnviarRegistro enviaRegistro=new EnviarRegistro();
 		
-		miboton.addActionListener(mievento);
+		botonEnviar.addActionListener(enviaRegistro);
 		
-		add(miboton);	
+		add(botonEnviar);	
 		
-		Thread mihilo=new Thread(this);
+		Thread hilo=new Thread(this);
 		
-		mihilo.start();
+		hilo.start();
 		
 	}
 	
-	private class EnviaTexto implements ActionListener{
+	private class EnviarRegistro implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			
-//			System.out.println(campo1.getText());
 			
 			try {
 				Socket socket=new Socket("192.168.0.11",9999);
@@ -104,20 +102,16 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 //				Objeto que contiene los datos
 				PaqueteEnvio datos=new PaqueteEnvio();
 				
-				datos.setNick(nick.getText());
+				datos.setNick(nickName.getText());
 				datos.setIp(ip.getText());
-				datos.setMensaje(campo1.getText());
+//				datos.setMensaje(campo1.getText());
 				
-//				flujo para envir el objeto al destinatario
+//				flujo para enviar el objeto al servidor
 				ObjectOutputStream paquete_datos=new ObjectOutputStream(socket.getOutputStream());
 				paquete_datos.writeObject(datos);
 				
 				socket.close();
 				
-				
-//				DataOutputStream flujo_salida=new DataOutputStream(socket.getOutputStream());
-//				flujo_salida.writeUTF(campo1.getText());
-//				flujo_salida.close();
 				
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
@@ -126,54 +120,27 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 				
-				System.out.println(e.getMessage());
 			}
 			
 		}
 		
 	}
-	
-		
-	private JTextField campo1,nick,ip;
-	
-	private JTextArea campochat;
-	
-	private JButton miboton;
+
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
-		try {
-//			esta a la escucha en el puerto 9090 (se usa para recibir los mensajes de otro cliente
-			ServerSocket servidor_cliente=new ServerSocket(9090);
 			
-			Socket cliente;
-			
-			PaqueteEnvio paqueteRecibido;
-			
-			while(true) {
-				
-				cliente=servidor_cliente.accept();
-				
-				ObjectInputStream flujoentrada=new ObjectInputStream(cliente.getInputStream());
-				
-				paqueteRecibido=(PaqueteEnvio) flujoentrada.readObject();
-				
-				campochat.append("\n"+paqueteRecibido.getNick()+": "+paqueteRecibido.getMensaje());
-			}
-			
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
 }
 
 
 class PaqueteEnvio implements Serializable{
 	
-	private String nick,ip,mensaje;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String nick,ip;
 
 	public String getNick() {
 		return nick;
@@ -191,14 +158,5 @@ class PaqueteEnvio implements Serializable{
 		this.ip = ip;
 	}
 
-	public String getMensaje() {
-		return mensaje;
 	}
-
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
-	
-	
 }
-

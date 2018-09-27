@@ -1,10 +1,5 @@
-
-
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -245,13 +240,6 @@ public class Jugar {
 
     private boolean regresar;
 
-    private ActionListener regresoListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            regresar = true;
-        }
-    };
-
     private void iniciarJuego() {
 
         tablero = new Tablero(n);
@@ -368,13 +356,6 @@ public class Jugar {
 
         ++restricciones.gridy;
         cuadricula.add(getEmptyLabel(new Dimension(2 * AnchoTablero, 10)), restricciones);
-
-//      crea un boton con un evento para regresar al menu principal
-        JButton goBackButton = new JButton("Salir del juego");
-        goBackButton.setPreferredSize(new Dimension(AnchoTablero, ladoCuad));
-        goBackButton.addActionListener(regresoListener);
-        ++restricciones.gridy;
-        cuadricula.add(goBackButton, restricciones);
 
         ventana.getContentPane().removeAll();
         ventana.revalidate();
