@@ -19,7 +19,6 @@ public class Cliente {
 		Cliente c=new Cliente(150);
 		Cliente d=new Cliente(700);
 		Servidor s=new Servidor();
-//		v
 	}
 	
 	public Cliente(int x) {
