@@ -3,7 +3,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
+/**
+ * Esta clase contiene la logica básica del juego
+ * @author Bojorge
+ *
+ */
 public class Jugar {
 //	estas constantes estaticas asignan el tamaño de los puntos y el lado del cuadrado que se forma entre cuatro puntos
     private final static int tamAnchLineas = 7;
@@ -37,6 +41,9 @@ public class Jugar {
     private JLabel etiquetaPuntosVerde, etiquetaPuntosAzul, etiquetaEstado;
 
 //  Evento para cuando se hace click
+    /**
+     * Se instancia la clase Mouselistener que gestiona lo que debe pasar cuando se da click o el cursor pasa sobre las lineas
+     */
     private MouseListener mouseListener = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
@@ -149,7 +156,9 @@ public class Jugar {
         }
 
     }
-
+/**
+ * Este metodo se encarga de gestionar lo que debe pasar mientras el tablero no se haya completado
+ */
     private void gestorJuego() {
 //    	mientras el tablero no este completo
         while(!tablero.isCompleto()) {
@@ -168,7 +177,12 @@ public class Jugar {
             }
         }
     }
-
+/**
+ * Este metodo coloca las lineas que conectan los puntos (estas son etiquetas) tambien llamados bordes
+ * por ser paralelos a los lados de un cuadrado
+ * @param object - regresa una instancia de JLabel
+ * @return
+ */
     private Borde getSource(Object object) {
         for(int i=0; i<(n-1); i++)
             for(int j=0; j<n; j++)
@@ -181,7 +195,9 @@ public class Jugar {
         return new Borde();
     }
 
-//  crea y le da color al borde o cada linea horizontal que conectan los puntos
+/**
+ *  crea y le da color al borde o cada linea horizontal que conectan los puntos
+ */
     private JLabel getBordeHorizontal() {
         JLabel label = new JLabel();
         label.setBackground(Color.WHITE);
@@ -192,7 +208,11 @@ public class Jugar {
         return label;
     }
 
-//  crea y le da color al borde o cada linea vertical que conectan los puntos
+/**
+ * 
+ * crea y le da color al borde o cada linea vertical que conectan los puntos
+ * @return - etiqueta
+ */
     private JLabel getBordeVertical() {
         JLabel label = new JLabel();
         label.setBackground(Color.WHITE);
@@ -203,7 +223,10 @@ public class Jugar {
         return label;
     }
 
-//  crea cada punto
+/**
+ *  crea cada punto
+ * @return - etiqueta
+ */
     private JLabel getPunto() {
         JLabel label = new JLabel();
         label.setPreferredSize(new Dimension(tamAnchLineas, tamAnchLineas));
@@ -211,7 +234,10 @@ public class Jugar {
         label.setOpaque(true);
         return label;
     }
-
+/**
+ * crea el cuadro que se forma entre 4 puntos
+ * @return
+ */
     private JLabel getCuadro() {
         JLabel label = new JLabel();
         label.setBackground(Color.WHITE);
@@ -219,14 +245,27 @@ public class Jugar {
         label.setOpaque(true);
         return label;
     }
-//	crea una etiqueta
+/**
+ * crea una etiqueta 
+ * @param d - etiqueta
+ * @return
+ */
     private JLabel getEmptyLabel(Dimension d) {
         JLabel label = new JLabel();
         label.setPreferredSize(d);
         return label;
     }
 
-//    metodo constructor, abre una ventana, con "n"se establece la matriz de puntos y nombre a los jugadores
+/**
+ *     metodo constructor, abre una ventana, con "n"se establece la matriz de puntos y nombre a los jugadores
+ * @param parent - instancia de la clase Main
+ * @param ventana - instancia de la clase JFrame
+ * @param n - tamaño de la matriz
+ * @param jugadorVerde - instancia de la clase abstracta llamada Jugador
+ * @param jugadorAzul - instancia de la clase abstracta llamada Jugador
+ * @param verdeName - cadena de texto
+ * @param azulName - cadena de texto 
+ */
     public Jugar(Main parent, JFrame ventana, int n, Jugador jugadorVerde, Jugador jugadorAzul, String verdeName, String azulName) {
        	this.padre = parent;
         this.ventana = ventana;
@@ -240,6 +279,9 @@ public class Jugar {
 
     private boolean regresar;
 
+    /**
+     * Este metodo crea la matriz, muestra los datos del juego y tiene la logica principal de esta clase
+     */
     private void iniciarJuego() {
 
         tablero = new Tablero(n);
@@ -379,8 +421,8 @@ public class Jugar {
         padre.initGUI();
     }
     
-    public void getDatosJuego() {
-    	
-    }
+//    public void getDatosJuego() {
+//    	
+//    }
 
 }

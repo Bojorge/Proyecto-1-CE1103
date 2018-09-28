@@ -1,5 +1,9 @@
 import javax.swing.JFrame;
-
+/**
+ * 
+ * @author Bojorge
+ *
+ */
 public class Main {
 	
     private int n;
@@ -10,7 +14,11 @@ public class Main {
 
     
     private JFrame ventana;
-   
+   /**
+    * Metodo constructor, crea una instancia de JFrame y establece el tamaño de la matriz (n) 
+    * @param jugador_1 - nombre del primer jugador que se extrae de la cola
+    * @param jugador_2 - nombre del segundo jugador que se extrae de la cola
+    */
 	public Main(String jugador_1,String jugador_2) {    	
     	this.jugador_1=jugador_1;
     	this.jugador_2=jugador_2;
@@ -25,6 +33,9 @@ public class Main {
         initGUI();
     }
 
+	/**
+	 * Este metodo usa objetos instanciados en esta clase para dar los parametros a la clase que tiene la logica principal del juego
+	 */
     public void initGUI() {
 
 

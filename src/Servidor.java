@@ -10,6 +10,7 @@ import java.net.Socket;
 
 /**
  * Hace la funcion de servidor en una comunicacion de tipo cliente-servidor
+ * Tiene una interfaz grafica (ventana) que se usa para pruebas
  * @author Bojorge
  *
  */
@@ -18,6 +19,9 @@ public class Servidor  {
 	private String jugador1,jugador2;
 	Main main;
 	
+	/**
+	 * Metodo constructor crea una instancia de una clase que abre una ventana
+	 */
 	public Servidor() {
 		// TODO Auto-generated method stub
 		
@@ -28,7 +32,10 @@ public class Servidor  {
 			
 	}
 	
-	
+	/**
+	 * Devuelve una cadena de texto con el nobre del jugador 1
+	 * @return
+	 */
 	public String getJugador1() {
 		return jugador1;
 	}
@@ -38,7 +45,10 @@ public class Servidor  {
 		this.jugador1 = jugador1;
 	}
 
-
+	/**
+	 * Devuelve una cadena de texto con el nobre del jugador 2
+	 * @return
+	 */
 	public String getJugador2() {
 		return jugador2;
 	}
@@ -48,7 +58,12 @@ public class Servidor  {
 		this.jugador2 = jugador2;
 	}
 
-
+/**
+ * Clase interna, contiene la intefaz grafica y crea un Thread para mantener al servidor 
+ * a la escucha de cualquier conexion por el puerto especificado y acepte el mensaje enviado
+ * @author Bojorge
+ *
+ */
 	class VentanaServidor extends JFrame implements Runnable{
 		
 		/**
@@ -79,7 +94,7 @@ public class Servidor  {
 			hilo.start();
 			
 			}
-		
+//		en esta area de texto se muestran los nombres de los jugadores
 		private	JTextArea areatexto;
 
 //		thread; se mantiene a la escucha de nuevas conecciones (se ejecuta en segundo plano)

@@ -11,28 +11,48 @@ public class Lista<E> {
 	Nodo<E> ultimo;
 	int cantidad;
 	
+	/**
+	 * Metodo constructor
+	 */
 	public Lista() {
 		this.cantidad=0;
 	}
-	
+	/**
+	 * devuelve la cantidad de elementos en la lista
+	 * @return
+	 */
 	public int getCantidad() {
 		return cantidad;
 	}
+	
+	/**
+	 * reinicia la matriz
+	 */
 	public void vaciar() {
 	cantidad=0;
 	}
 	
+	/**
+	 * indica con un valor booleano si la matriz está vacia
+	 * @return
+	 */
 	public boolean estaVacia() {
 		return (cantidad==0);
 	}
-	
+	/**
+	 * regresa el dato del primer elemento
+	 * @return
+	 */
 	public E primero() {
 		if(estaVacia()) {
 			return null;
 		}
 		return primero.getDato();
 	}
-	
+	/**
+	 * inserta al inicio de la lista
+	 * @param dato
+	 */
 	public void insertarInicio(E dato) {
 		primero=new Nodo<E>(dato,primero);
 		if (estaVacia()) {
@@ -40,7 +60,10 @@ public class Lista<E> {
 		}
 		cantidad++;
 	}
-	
+	/**
+	 * regresa el ultimo elemento
+	 * @return
+	 */
 	public E ultimo() {
 		if(estaVacia()) {
 			return null;

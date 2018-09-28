@@ -10,7 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+/**
+ * Esta clase hace la parte de cliente en la conexion por socket para enviar
+ * la informacion de los jugadores al servidor 
+ * @author Bojorge
+ *
+ */
 
 
 public class Cliente {
@@ -20,7 +25,10 @@ public class Cliente {
 		Cliente d=new Cliente(700);
 		Servidor s=new Servidor();
 	}
-	
+	/**
+	 * Metodo constructor de la clase cliente
+	 * @param x - este parametro le da la posicion en el eje x a la ventana de registro de cada jugador
+	 */
 	public Cliente(int x) {
 		@SuppressWarnings("unused")
 		VentanaPrincipal v=new VentanaPrincipal(x);
@@ -28,7 +36,11 @@ public class Cliente {
 	
 }
 
-
+/**
+ * Esta clase crea la ventana para el registro del jugador
+ * @author Bojorge
+ *
+ */
 class VentanaPrincipal extends JFrame{
 	
 	/**
@@ -36,6 +48,10 @@ class VentanaPrincipal extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * metodo constructor
+	 * @param x - le da la posicion en el eje x
+	 */
 	public VentanaPrincipal(int x){
 		
 		setBounds(x,300,500,100);
@@ -48,7 +64,11 @@ class VentanaPrincipal extends JFrame{
 		}	
 	
 }
-
+/**
+ * Esta clase crea el panel que contiene a los componentes que estan en la ventana
+ * @author Bojorge
+ *
+ */
 class PanelPrincipalCliente extends JPanel implements Runnable{
 	
 	/**
@@ -59,7 +79,9 @@ class PanelPrincipalCliente extends JPanel implements Runnable{
 	private JTextField nickName,ip;
 	
 	private JButton botonEnviar;
-	
+	/**
+	 * Metodo constructor, agrega los elementos al panel
+	 */
 	public PanelPrincipalCliente(){
 		
 		JLabel Jugador=new JLabel("Jugador >>>");		
@@ -88,9 +110,15 @@ class PanelPrincipalCliente extends JPanel implements Runnable{
 		hilo.start();
 		
 	}
-	
+	/**
+	 * Esta clase crea el evento que envia la informacion de cada cliente al servidor
+	 * @author Bojorge
+	 *
+	 */
 	private class EnviarRegistro implements ActionListener{
-
+		/**
+		 * este metodo se debe implementar al implementar la interface Action listener
+		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
@@ -133,7 +161,11 @@ class PanelPrincipalCliente extends JPanel implements Runnable{
 			
 }
 
-
+/**
+ * Esta clase crea un paquete donde se almacenan los datos nesesarios para enviar al servidor
+ * @author Bojorge
+ *
+ */
 class PaqueteEnvio implements Serializable{
 	
 	/**
@@ -141,19 +173,31 @@ class PaqueteEnvio implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String nick,ip;
-
+/**
+ * 
+ * @return - regresa el nombre del jugador
+ */
 	public String getNick() {
 		return nick;
 	}
-
+/**
+ * configura el nombre de usuario
+ * @param nick - nombre de cada jugador
+ */
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-
+/**
+ * devuelve la direccion ip del equipo al que se debe conectar 
+ * @return la direccion
+ */
 	public String getIp() {
 		return ip;
 	}
-
+/**
+ * configura la direccion ip
+ * @param ip - direccion
+ */
 	public void setIp(String ip) {
 		this.ip = ip;
 	}

@@ -1,3 +1,8 @@
+/**
+ * Clase abstracta, que establece el comportamiento del jugador
+ * @author Bojorge
+ *
+ */
 public abstract class Jugador {
 
     protected int colorReferencia;
@@ -5,6 +10,7 @@ public abstract class Jugador {
     private final static int cTres = 15;
     private final static int cDos = 1;
 
+    
     protected int mecanicaJuego(final Tablero tablero, int color) {
         int valor;
         if(colorReferencia == Tablero.VERDE)

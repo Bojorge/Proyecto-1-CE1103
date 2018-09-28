@@ -1,7 +1,11 @@
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Bojorge
+ *
+ */
 public class Tablero implements Cloneable {
 	Actualizacion actualizar=new Actualizacion();
 	
@@ -15,6 +19,10 @@ public class Tablero implements Cloneable {
     private int[][] cuadro;
     private int n, puntuacionVerde, puntuacionAzul;
 
+/**
+ * Metodo constructor, crea las instancias de las matrices y recibe un entero que especifica el tamaño (n) de la matriz
+ * @param n
+ */
     public Tablero(int n) {
         hBorde = new int[n-1][n];
         vBorde = new int[n][n-1];
@@ -26,9 +34,11 @@ public class Tablero implements Cloneable {
         puntuacionVerde = puntuacionAzul = 0;
     } 
  	
-//    metodo sobreescrito obligatoria al implementar la interfaz cloneable
-//    realiza copias del tablero
-//    este metodo no esta en la interface cloneable esta en la clase Object
+/**
+ *metodo sobreescrito obligatoriamente al implementar la interfaz cloneable
+ *realiza copias del tablero
+ *este metodo no esta en la interface cloneable esta en la clase Object
+*/
     public Tablero clone() {
         Tablero clonado = new Tablero(n);
 
@@ -49,41 +59,69 @@ public class Tablero implements Cloneable {
 
         return clonado;
     }
-
+/**
+ * llena una matriz con enteros
+ * @param array
+ * @param val
+ */
     private void llenar(int[][] array, int val) {
         for(int i=0; i<array.length; i++)
             for(int j=0; j<array[i].length; j++)
                 array[i][j]=val;
     }
-
+/**
+ * Devuelve el tamaño de la matriz
+ * @return
+ */
     public int getTamano() { return n; }
 
+    /**
+     * Devuelve la puntuacion del jugador 1
+     * @return
+     */
     public int getPuntuacionVerde() {
         return puntuacionVerde;
     }
 
+    /**
+     * Devuelve la puntuacion del jugador 2
+     * @return
+     */
     public int getPuntuacionAzul() {
         return puntuacionAzul;
     }
-
+    /**
+     * Devuelve la puntuacion
+     * @param color - color que depende si es el jugador 1 o el jugador 2
+     * @return
+     */
     public int getScore(int color) {
         if(color == VERDE) return puntuacionVerde;
         else return puntuacionAzul;
     }
-
+/**
+ * Metodo estatico que devuelve el color contrario (en el contexto del juego) del parametro recibido
+ * @param color
+ * @return
+ */
     public static int alternarColor(int color) {
         if(color == VERDE)
             return AZUL;
         else
             return VERDE;
     }
-
+/**
+ * crea las zonas que aun no han sido marcadas
+ * @return
+ */
     public ArrayList<Borde> getMovimientosDisponibles() {
         ArrayList<Borde> remover = new ArrayList<Borde>();
+//      lineashorizontales
         for(int i=0; i<(n-1);i++)
             for(int j=0; j<n; j++)
                 if(hBorde[i][j] == BLANCO)
                     remover.add(new Borde(i,j,true));
+//      lineas verticales
         for(int i=0; i<n; i++)
             for(int j=0; j<(n-1); j++)
                 if(vBorde[i][j] == BLANCO)
@@ -91,7 +129,13 @@ public class Tablero implements Cloneable {
         return remover;
     }
 
-//  metodo para determinar cuando se ha cerrado un cuadro y para quien es el punto
+/**
+ * metodo para determinar cuando se ha cerrado un cuadro con una linea horizontal y para quien es el punto
+ * @param x
+ * @param y
+ * @param color
+ * @return
+ */
     public ArrayList<Point> setHBorde(int x, int y, int color) {
         hBorde[x][y]=NEGRO;
         ArrayList<Point> remover = new ArrayList<Point>();
@@ -121,7 +165,13 @@ public class Tablero implements Cloneable {
         }
         return remover;
     }
-
+    /**
+     * metodo para determinar cuando se ha cerrado un cuadro con una linea vertical y para quien es el punto
+     * @param x
+     * @param y
+     * @param color
+     * @return
+     */
     public ArrayList<Point> setVBorde(int x, int y, int color) {
         vBorde[x][y]=NEGRO;
         ArrayList<Point> remover = new ArrayList<Point>();

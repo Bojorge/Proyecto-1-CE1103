@@ -12,19 +12,27 @@ public class Cola {
     }    
 
     private Nodo raiz,fondo;    
-
+/**
+ * Metodo constructor, inicia los valores iniciales del primer y ultimo elementos en la cola 
+ */
     public Cola() {
         raiz=null;
         fondo=null;
     }    
-
+/**
+ * Devuelve si la cola está vacia 
+ * @return
+ */
     boolean vacia (){
         if (raiz == null)
             return true;
         else
             return false;
     }
-
+/**
+ * Este metodo inserta un elemento a la cola
+ * @param info
+ */
     void insertar (Object info) {  
         Nodo nuevo;
         nuevo = new Nodo ();
@@ -39,7 +47,10 @@ public class Cola {
             fondo = nuevo;
         }
     }
-
+/**
+ * Este metodo extrae el primer elemento de la cola
+ * @return
+ */
     Object extraer () {    
         if (!vacia ()) {     
         	Object informacion = raiz.info;
